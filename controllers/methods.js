@@ -26,10 +26,10 @@ async function getAndSaveTransaction(req, res) {
                 saveTransactionToMongo(sliced, _address)
 
                 console.log("transaction updated!!!")
-                res.send(response.data.result)
+                res.send(response.data.result.slice(0,100))
             }
             else {
-                res.send(lastdata)
+                res.send(lastdata.slice(0,100))
                 console.log("already updated!!!")
             }
 
@@ -43,7 +43,7 @@ async function getAndSaveTransaction(req, res) {
             saveTransactionToMongo(transactions, _address)
 
 
-            res.send(transactions)
+            res.send(transactions.slice(0,100))
             // const db_res = await userModel.find({userAddress : _address})
             console.log("Transaction data saved!");
 

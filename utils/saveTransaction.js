@@ -1,7 +1,7 @@
 const userModel = require("../models/model.js")
 
-async function saveTransactionToMongo(log,_address){
-    await userModel.create({
+async function saveTransactionToMongo(logs,_address){
+    await userModel.insertMany(logs.map((log)=>({
         userAddress: _address,
         blockNumber: log.blockNumber,
         timeStamp: Number(log.timeStamp),
@@ -22,7 +22,7 @@ async function saveTransactionToMongo(log,_address){
         confirmations: Number(log.confirmations),
         methodId: log.methodId,
         functionName: log.functionName
-    });
+    })))
 }
 
 module.exports = { saveTransactionToMongo }

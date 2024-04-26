@@ -40,9 +40,9 @@ async function getAndSaveTransaction(req, res) {
             }
 
             
-            const db_res = await userModel.find({userAddress : _address})
+            // const db_res = await userModel.find({userAddress : _address})
             console.log("Transaction data saved!");
-            res.send(db_res)
+            res.send(transactions)
         }
     } catch (error) {
         console.error("Error:", error);

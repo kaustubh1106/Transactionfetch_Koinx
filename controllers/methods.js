@@ -29,7 +29,8 @@ async function getAndSaveTransaction(req, res) {
                 res.send(response.data.result.slice(0,100))
             }
             else {
-                res.send(lastdata.slice(0,100))
+                const slice = lastdata.slice(0,100)
+                res.send(slice)
                 console.log("already updated!!!")
             }
 

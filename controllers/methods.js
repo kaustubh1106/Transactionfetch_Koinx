@@ -13,15 +13,18 @@ async function getAndSaveTransaction(req, res) {
         if (user) {  
             //if YES                 
             const lastdata = await userModel.find({ userAddress: _address });         
-            const timestamp1 = lastdata.timeStamp
+            const timestamp1 = lastdata[lastdata.length-1].timeStamp
+            console.log(timestamp1)
             const response = await axios.get(`https://api.etherscan.io/api?module=account&action=txlist&address=${_address}&startblock=0&endblock=99999999&page=1&offset=10000&sort=asc&apikey=${process.env.ETHSCAN_API_KEY}`);
             const transactions = response.data.result;
             let lastindex = transactions.length - 1
+            console.log(transactions[lastindex].timeStamp)
             if (timestamp1 < transactions[lastindex].timeStamp) {   
                 //IF THERE IS MORE TRANSACTION ADDED AFTER LAST UPDATE IF YES THEN ADD TO DATABASE
                 for(let i= lastdata.length; i<=lastindex ;i++){
-                    saveTransactionToMongo(response[i],_address)
+                    saveTransactionToMongo(transactions[i],_address)
                 }
+                console.log("transaction updated!!!")
                 res.send(response.data.result)
             }
             else {

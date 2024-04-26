@@ -1,5 +1,5 @@
 const axios = require('axios');
-
+const ethModel = require("../models/ethModel")
 
 
 const price = async () => {

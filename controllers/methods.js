@@ -57,7 +57,11 @@ async function getBalance(req, res) {
     const ethprice = await axios.get(`https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=inr&x_cg_demo_api_key=${process.env.COINGECKO_API_KEY}`)
     console.log(ethprice.data.ethereum.inr)
     try {
-        const res_from = await userModel.find({ from: _address })
+        const res_add = await userModel.findOne({ userAddress: _address })
+        if(!res_add){
+            await getAndSaveTransaction(req,res)
+        }
+        else{const res_from = await userModel.find({ from: _address })
         const res_to = await userModel.find({ to: _address })
         for (const log of res_to) {
             balance+=log.value
@@ -65,7 +69,7 @@ async function getBalance(req, res) {
         for (const log of res_from) {
             balance-=log.value
         }
-        console.log(balance * 1e-18)
+        console.log(balance * 1e-18)}
     } catch (e) {
         console.log("error: ", e)
     }

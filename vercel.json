@@ -5,8 +5,11 @@
       { "src": "/index.js", "use": "@vercel/node" }
     ],
     "routes": [
-      { "src": "/(.*)", "dest": "/" ,"options": {
+      { "src": "/(.*)", "dest": "/" }
+    ],
+    "functions": {
+      "controller/methods.js": {
         "maxDuration": 30 
-      }}
-    ]
+      }
+    }
 }

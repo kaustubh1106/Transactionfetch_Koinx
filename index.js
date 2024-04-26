@@ -17,7 +17,7 @@ connectMongoDB(`${process.env.URL}`)
     .catch((e) => { console.log("monggo error", e) })
 
 
-setInterval(price, 10000); // TASK 2: FETCH ETH PRICE EVERY TEN MINUTE
+setInterval(price, 600000); // TASK 2: FETCH ETH PRICE EVERY TEN MINUTE
     
 
 
